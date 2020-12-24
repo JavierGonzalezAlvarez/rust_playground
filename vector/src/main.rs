@@ -28,7 +28,7 @@ fn main() {
     let ver: &i32 = &v2[2];
     println!("Es vector escogido es {}", ver);
     
-    //ver valores: opcion 3, con match
+    //ver valores: opcion 3, con match y get
     match v2.get(0) {
         //Some(ver) => println!("{}", v2[3]),
         Some(resultado) => println!("El resultado match es: {}", resultado),
