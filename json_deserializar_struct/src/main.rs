@@ -1,63 +1,12 @@
-//doc => https://docs.serde.rs/serde_json/index.html
+//doc = https://serde.rs/
 
-/*
-deserializacion => json a datos
-
-importar serde, ahora usamos una macro llamada json
-de un strn pasamos a un json
-*/
-//use serde_json::{json, Value};
-use serde_json::{json};
-
-fn main() {
-    println!("Serde");
-    println!("-----");
-    /*
-        un result me puede lanzar errores,
-        indicar un unwrap() dado que espero que el codigo este ok
-        unwrap() puede ser ok() o result()
-    */
-    untyped_json_struct().unwrap();
-}
-
-//al colocar la marco ?, uso serde_json::Result<()>, traigo un dato, da igual el tipo
-fn untyped_json_struct() -> serde_json::Result<()> {
-    #[macro_use]
+#[macro_use]
 extern crate serde_derive;
 
-use serde_json::Result;
-
-fn main() -> Result<()>  {
-    let data = r#"
-    [
-      {
-        "id": 1,
-        "type": "personal",
-        "details": {
-          "firstName": "Juliano",
-          "lastName": "Alves",
-          "primaryAddress": 7777777
-        }
-      },
-      {
-        "id": 2,
-        "type": "business",
-        "details": {
-          "name": "Juliano Business",
-          "companyRole": "OWNER",
-          "primaryAddress": 8888888
-        }
-      }
-    ]
-    "#;
-
-    let profiles: Vec<Profile> = serde_json::from_str(data)?;
-    println!("{:#?}", profiles);
-
-    Ok(())
-}
+use serde_json::{Result, Value};
 
 #[derive(Deserialize, Debug)]
+//los campos deben tener formato camelCase;
 #[serde(rename_all = "camelCase")]
 struct PersonalDetails {
     first_name: String,
@@ -75,16 +24,63 @@ struct BusinessDetails {
 
 #[derive(Deserialize, Debug)]
 #[serde(tag = "type", rename_all = "camelCase")]
-enum Profile {
-    Personal {
+enum EnumEstructura {
+    DatosPersonales {
         id: i32,
         details: PersonalDetails,
     },
-    Business {
+    DatosBusiness {
         id: i32,
         details: BusinessDetails,
     },
 }
 
+fn untyped_json_data() -> Result<()>  {
+    //json para convertir a objeto/valores
+    let data = r#"
+    [
+      {
+        "id": 1,
+        "type": "datosPersonales",
+        "details": {
+          "firstName": "Juliano",
+          "lastName": "Alves",
+          "primaryAddress": 7777777
+        }
+      },
+      {
+        "id": 2,
+        "type": "datosBusiness",
+        "details": {
+          "name": "Juliano Business",
+          "companyRole": "OWNER",
+          "primaryAddress": 8888888
+        }
+      }
+    ]
+    "#;
+
+    //estructura enum a una variable
+    let estructura_json: Vec<EnumEstructura> = serde_json::from_str(data)?;
+    println!("{:#?}", estructura_json);
+    
+    //valores a una variable
+    let valor: Value = serde_json::from_str::<Value>(data)?;
+    println!("---------");
+    println!("json");
+    println!("---------");    
+    println!("  json = {}", valor);
+    println!("---------");
+    //macro con debug
+    println!("  json objeto = {:?}", valor);
+    println!("---------");
+
+    Ok(())
 }
+
+fn main()  {
+  untyped_json_data().unwrap();
+}
+
+
 
