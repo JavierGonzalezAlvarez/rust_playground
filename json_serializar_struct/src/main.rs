@@ -2,10 +2,25 @@
 
 /*
 importar serde, ahora usamos una macro llamada json
-de un strn pasamos a un json
+de un str pasamos a un json con structura, struct
 */
 //use serde_json::{json, Value};
-use serde_json::{json};
+use serde::{Deserialize, Serialize};
+use serde_json::Result;
+
+/*
+a esta estructura le añadimos que serialice y desserialize
+ y añadimos debug para imprimir
+ */
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Datos {
+    name: String,
+    address: String,
+    age: i8,    
+    phones: [i64; 2], //array
+    //phones: v[String], //tb podemos usar un vector de string
+    //HashMap como posibiliad
+}
 
 fn main() {
     println!("Serde");
@@ -15,40 +30,28 @@ fn main() {
         indicar un unwrap() dado que espero que el codigo este ok
         unwrap() puede ser ok() o result()
     */
-    untyped_json().unwrap();
+    untyped_json_struct().unwrap();
 }
 
 //al colocar la marco ?, uso serde_json::Result<()>, traigo un dato, da igual el tipo
-fn untyped_json() -> serde_json::Result<()> {
+fn untyped_json_struct() -> Result<()> {
     /*
     creo variable data, 
     y dentro haby un string raw, se inicia con r#" lo que hay dentro es string "#
     */
+        
+    let data = Datos {
+        //le metemos to_owned() => which just allocates a buffer and copies the literal into the buffer
+        name: "javier".to_owned(),
+        address: "street oxford nº 34".to_owned(),
+        age: 21.to_owned(),
+        phones: [
+            1213232367,
+            2837826476
+        ].to_owned()        
+    };    
 
-    //usamos un macro llamada json -> !()
-    /*
-    este codigo tb works:
-    let data: Value = json!(
-    */
-    let data = json!(
-    {
-        "name": "javier",
-        "address": "street oxford nº 34",
-        "age": 22,
-        "phones": [
-            "+34 21213232367",
-            "+34 82837826476"
-            ]        
-    });    
-
-    /*
-    declaro una variable, de tipo "Value" que es un objeto de rust
-    <Value> significa que retorna un Value (genérico)
-    le pongo la macro ?, pero para que este habilitada es necesario
-    que haga uso de un tipo de dato "serde_json"
-    */
     let valor = serde_json::to_string(&data)?;
-//    let valor: Value = serde_json::from_str::<Value>(data)?;
 
     println!("Json");
     println!("---------");
@@ -56,7 +59,8 @@ fn untyped_json() -> serde_json::Result<()> {
     println!("  valor = {}", valor);
     //macro con debug
     println!("  value = {:?}", valor);
-    println!("  Llamar a  {} al teléfono {}", data["name"], data["phones"][1]);            
+    println!("  Llamar a  {} al teléfono {}", data.name, data.phones[1]);            
+    
     //si está ok
     Ok(())        
 
