@@ -1,4 +1,7 @@
-//importar serde, traemos value
+/*
+importar serde, traemos value
+serializacion => raw a json
+*/
 use serde_json::Value;
 
 fn main() {

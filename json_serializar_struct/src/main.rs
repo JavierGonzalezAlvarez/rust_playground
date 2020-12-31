@@ -3,16 +3,18 @@
 /*
 importar serde, ahora usamos una macro llamada json
 de un str pasamos a un json con structura, struct
+
+serializacion => struct a json
 */
 //use serde_json::{json, Value};
-use serde::{Deserialize, Serialize};
+use serde::{Serialize};
 use serde_json::Result;
 
 /*
 a esta estructura le añadimos que serialice y desserialize
  y añadimos debug para imprimir
  */
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Debug)]
 pub struct Datos {
     name: String,
     address: String,

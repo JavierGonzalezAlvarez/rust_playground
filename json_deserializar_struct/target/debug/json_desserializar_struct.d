@@ -1,0 +1,1 @@
+/home/javier/Escritorio/Proyectos/rust/rust_estructuras/json_deserializar_struct/target/debug/json_desserializar_struct: /home/javier/Escritorio/Proyectos/rust/rust_estructuras/json_deserializar_struct/src/main.rs
