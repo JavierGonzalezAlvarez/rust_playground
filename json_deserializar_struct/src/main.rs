@@ -9,17 +9,18 @@ use serde_json::{Result, Value};
 //los campos deben tener formato camelCase;
 #[serde(rename_all = "camelCase")]
 struct PersonalDetails {
-    first_name: String,
-    last_name: String,
-    primary_address: i32
+    name: String,
+    surname: String,
+    address: String
 }
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 struct BusinessDetails {
     name: String,
-    company_role: String,
-    primary_address: i32
+    post: String,
+    address: String,
+    phone: i32
 }
 
 #[derive(Deserialize, Debug)]
@@ -43,18 +44,20 @@ fn untyped_json_data() -> Result<()>  {
         "id": 1,
         "type": "datosPersonales",
         "details": {
-          "firstName": "Juliano",
-          "lastName": "Alves",
-          "primaryAddress": 7777777
+          "name": "Javier",
+          "surname": "gonzalez",
+          "address": "oxford street",
+          "phone": 329382937
         }
       },
       {
         "id": 2,
         "type": "datosBusiness",
         "details": {
-          "name": "Juliano Business",
-          "companyRole": "OWNER",
-          "primaryAddress": 8888888
+          "name": "javier",
+          "post": "software",
+          "address": "oxford steeet",
+          "phone": 489384672
         }
       }
     ]
