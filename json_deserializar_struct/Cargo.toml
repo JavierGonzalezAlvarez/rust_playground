@@ -1,5 +1,5 @@
 [package]
-name = "json_desserializar_struct"
+name = "json_deserializar_struct"
 version = "0.1.0"
 authors = ["JavierGonzalezAlvarez <jgalvarez.jga@gmail.com>"]
 edition = "2018"

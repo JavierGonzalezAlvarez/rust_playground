@@ -18,7 +18,7 @@ fn main() {
 //al colocar la marco ?, uso serde_json::Result<()>, traigo un dato, da igual el tipo
 fn untyped_raw_str() -> serde_json::Result<()> {
     /*
-    creo variable data, 
+    creo variable data,
     y dentro haby un string raw, se inicia con r#" lo que hay dentro es string "#
     */
     let data = r#"
@@ -47,9 +47,12 @@ fn untyped_raw_str() -> serde_json::Result<()> {
     println!("  valor = {}", valor);
     //macro con debug
     println!("  value = {:?}", valor);
-    println!("  Llamar a  {} al teléfono {}", valor["name"], valor["phones"][1]);
-    
-    //si está ok
-    Ok(())        
+    println!(
+        "  Llamar a  {} al teléfono {}",
+        valor["name"], valor["phones"][1]
+    );
+    println!("Llamar a {} ", valor["name"].as_str().unwrap());
 
+    //si está ok
+    Ok(())
 }
